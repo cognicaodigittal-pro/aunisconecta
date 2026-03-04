@@ -132,7 +132,7 @@ img {
     display: flex;
     align-items: center;
     position: relative;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 100%), url('assets/hero_bg.png') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('assets/hero_bg.png') center/cover no-repeat;
     text-align: center;
 }
 
@@ -143,7 +143,7 @@ img {
 }
 
 #hero h1 {
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
     line-height: 1.2;
     margin-bottom: 25px;
     font-weight: 800;
@@ -167,12 +167,12 @@ img {
 }
 
 .countdown-item {
-    background: var(--glass-bg);
+    background: rgba(0, 0, 0, 0.6);
     border: 1px solid var(--glass-border);
     padding: 20px;
-    min-width: 100px;
+    min-width: 110px;
     border-radius: 10px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
 }
 
 .countdown-item span {
@@ -185,6 +185,7 @@ img {
 .countdown-item p {
     margin-bottom: 0 !important;
     font-size: 0.8rem;
+    color: var(--pure-white);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
