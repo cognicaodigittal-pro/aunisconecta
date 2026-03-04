@@ -52,6 +52,14 @@ h3,
     letter-spacing: 1px;
 }
 
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+h3 {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+}
+
 a {
     text-decoration: none;
     transition: var(--transition-smooth);
@@ -222,9 +230,12 @@ section {
 }
 
 .section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: 50px;
     text-align: center;
+}
+
+.section-title h2 {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
 }
 
 /* Benefits Section */
@@ -304,7 +315,7 @@ section {
 }
 
 .ticket-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 20px;
 }
 
@@ -414,6 +425,14 @@ footer {
     #hero p {
         font-size: 1rem;
         padding: 0 10px;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
     }
 
     .sticky-cta .container {
