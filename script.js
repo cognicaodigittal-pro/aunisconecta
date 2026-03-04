@@ -1,11 +1,14 @@
-// Countdown Timer
+// Target Date: March 25, 2026, 09:00:00
+const targetDate = new Date('March 25, 2026 09:00:00').getTime();
+
 function updateCountdown() {
-    const eventDate = new Date('March 25, 2026 09:00:00').getTime();
     const now = new Date().getTime();
-    const distance = eventDate - now;
+    const distance = targetDate - now;
 
     if (distance < 0) {
-        document.getElementById('countdown').innerHTML = 'EVENTO EM ANDAMENTO';
+        clearInterval(countdownInterval);
+        const timerEl = document.getElementById('timer');
+        if (timerEl) timerEl.innerHTML = "<h2 style='color: var(--primary-gold)'>O EVENTO COMEÇOU!</h2>";
         return;
     }
 
@@ -14,35 +17,61 @@ function updateCountdown() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById('days').innerText = String(days).padStart(2, '0');
-    document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-    document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
 }
 
-setInterval(updateCountdown, 1000);
+const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// Sticky CTA Visibility
-const hero = document.getElementById('hero');
-const stickyCta = document.getElementById('sticky-cta');
+// Intersection Observer for Reveal Animations
+const revealOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, revealOptions);
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Sticky Header Logic
+const stickyHeader = document.getElementById('sticky-header');
+const heroSection = document.getElementById('hero');
 
 window.addEventListener('scroll', () => {
-    const heroBottom = hero.getBoundingClientRect().bottom;
-    if (heroBottom < 0) {
-        stickyCta.classList.add('active');
-    } else {
-        stickyCta.classList.remove('active');
+    if (heroSection && stickyHeader) {
+        if (window.scrollY > heroSection.offsetHeight - 100) {
+            stickyHeader.classList.add('active');
+        } else {
+            stickyHeader.classList.remove('active');
+        }
     }
 });
 
-// Smooth Scrolling (for browsers that don't support scroll-behavior: smooth)
+// Smooth Scroll for Internal Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const target = document.querySelector(targetId);
         if (target) {
-            target.scrollIntoView({
+            window.scrollTo({
+                top: target.offsetTop - 80,
                 behavior: 'smooth'
             });
         }
